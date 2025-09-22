@@ -1,0 +1,243 @@
+.dashboard {
+  min-height: 100vh;
+  /* background: linear-gradient(135deg, #022340 0%, #0f3460 50%, #1e4a73 100%); */
+  color: #111827;
+  padding: 20px;
+}
+
+.dashboard-header {
+  background: linear-gradient(135deg, #022340 0%, #0f3460 50%, #1e4a73 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 30px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-section h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #FF4500;
+  margin: 0 0 10px 0;
+}
+
+.welcome-section p {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+}
+
+.header-stats {
+  display: flex;
+  gap: 20px;
+}
+
+.header-stat {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 69, 0, 0.1);
+  padding: 15px 20px;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 69, 0, 0.2);
+}
+
+.header-stat .stat-icon {
+  width: 24px;
+  height: 24px;
+  color: #FF4500;
+}
+
+.header-stat .stat-number {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #FF4500;
+}
+
+.header-stat .stat-text {
+  display: block;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.dashboard-content {
+  display: flex;
+  gap: 30px;
+}
+
+.main-section {
+  flex: 1;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin: 30px 0;
+}
+
+.grid-item {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.section-header h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin: 0 0 20px 0;
+}
+
+.actions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.action-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.action-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.action-card.blue {
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.action-card.green {
+  border-color: rgba(34, 197, 94, 0.3);
+}
+
+.action-card.purple {
+  border-color: rgba(147, 51, 234, 0.3);
+}
+
+.action-card.orange {
+  border-color: rgba(255, 69, 0, 0.3);
+}
+
+.action-icon {
+  width: 32px;
+  height: 32px;
+  color: #FF4500;
+}
+
+.action-card span {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #FF4500;
+  text-align: center;
+}
+
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.activity-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 15px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.activity-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(5px);
+}
+
+.activity-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+.activity-item.success .activity-dot {
+  background: #10B981;
+}
+
+.activity-item.info .activity-dot {
+  background: #3B82F6;
+}
+
+.activity-item.warning .activity-dot {
+  background: #F59E0B;
+}
+
+.activity-content p {
+  margin: 0 0 5px 0;
+  font-size: 0.9rem;
+  color: #FFFFFF;
+  font-weight: 500;
+}
+
+.activity-time {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.time-icon {
+  width: 14px;
+  height: 14px;
+}
+
+@media (max-width: 1200px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 15px;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .welcome-section h1 {
+    font-size: 2rem;
+  }
+
+  .actions-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-content {
+    flex-direction: column;
+  }
+}

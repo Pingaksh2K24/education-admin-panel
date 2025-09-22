@@ -1,0 +1,75 @@
+/* Radio Button Component Styles */
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 14px;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 10px;
+}
+
+.radio-input {
+  display: none;
+}
+
+.radio-custom {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #e9ecef;
+  border-radius: 50%;
+  position: relative;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.radio-option:hover .radio-custom {
+  border-color: #FF4500;
+}
+
+.radio-input:checked + .radio-custom {
+  border-color: #FF4500;
+}
+
+.radio-input:checked + .radio-custom::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  background: #FF4500;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.radio-label {
+  font-size: 14px;
+  color: #2c3e50;
+  user-select: none;
+}
+
+.radio-input:disabled + .radio-custom {
+  background: #f8f9fa;
+  cursor: not-allowed;
+}
+
+.radio-input:disabled ~ .radio-label {
+  color: #6c757d;
+  cursor: not-allowed;
+}

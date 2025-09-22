@@ -1,0 +1,175 @@
+.sidebar {
+  width: 240px;
+  background: #022340;
+  padding: 20px 0;
+  border-right: 1px solid #E5E7EB;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  transition: width 0.3s ease;
+}
+
+.sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+.sidebar.collapsed {
+  width: 60px;
+}
+
+.toggle-btn {
+  position: absolute;
+  top: 20px;
+  right: -12px;
+  width: 24px;
+  height: 24px;
+  background: #FF4500;
+  border: none;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1001;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-btn:hover {
+  background: #E03E00;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(255, 69, 0, 0.3);
+}
+
+.toggle-icon {
+  width: 14px;
+  height: 14px;
+  color: white;
+  stroke-width: 2;
+  transition: transform 0.3s ease;
+}
+
+.toggle-icon.rotated {
+  transform: rotate(180deg);
+}
+
+.sidebar.collapsed .logo h2,
+.sidebar.collapsed .nav-label,
+.sidebar.collapsed .chevron-icon {
+  display: none;
+}
+
+.sidebar.collapsed .nav-item {
+  justify-content: center;
+  padding: 12px;
+}
+
+.sidebar.collapsed .nav-icon {
+  margin-right: 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  padding: 0 20px 28px;
+  border-bottom: 1px solid #E5E7EB;
+  margin-bottom: 20px;
+}
+
+.logo-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  color: #FFFFFF;
+}
+
+.logo h2 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  color: #FFFFFF;
+}
+
+.nav-menu {
+  padding: 0 10px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  margin: 5px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+  justify-content: space-between;
+  color: #FFFFFF;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-item.active {
+  background: #F44336;
+  color: #FFFFFF;
+}
+
+.nav-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+  stroke-width: 1.5;
+}
+
+.nav-label {
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+}
+
+.chevron-icon {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2;
+  transition: transform 0.2s;
+}
+
+.sub-menu {
+  margin-left: 20px;
+  border-left: 2px solid #E5E7EB;
+  padding-left: 10px;
+}
+
+.sub-menu-item {
+  padding: 8px 15px;
+  margin: 2px 0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.sub-menu-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.sub-menu-item.active {
+  background: rgba(244, 67, 54, 0.6);
+  color: #FFFFFF;
+}
+
+.sub-menu-label {
+  font-size: 13px;
+  color: #D1D5DB;
+  font-weight: 400;
+}
+
+.sub-menu-item.active .sub-menu-label {
+  color: #FFFFFF;
+  font-weight: 500;
+}

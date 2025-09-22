@@ -1,0 +1,196 @@
+/* Base Button Styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+.btn.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn.loading {
+  cursor: wait;
+}
+
+/* Button Sizes */
+.btn-small {
+  padding: 8px 16px;
+  font-size: 12px;
+  min-height: 32px;
+}
+
+.btn-medium {
+  padding: 12px 20px;
+  font-size: 14px;
+  min-height: 40px;
+}
+
+.btn-large {
+  padding: 16px 24px;
+  font-size: 16px;
+  min-height: 48px;
+}
+
+/* Button Variants */
+.btn-primary {
+  background: linear-gradient(135deg, #3B82F6, #1D4ED8);
+  color: white;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #1D4ED8, #1E40AF);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.4);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #6B7280, #4B5563);
+  color: white;
+  box-shadow: 0 2px 4px rgba(107, 114, 128, 0.3);
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(135deg, #4B5563, #374151);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(107, 114, 128, 0.4);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #FF4500, #E03E00);
+  color: white;
+  box-shadow: 0 2px 4px rgba(255, 69, 0, 0.3);
+}
+
+.btn-success:hover {
+  background: linear-gradient(135deg, #E03E00, #CC3700);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255, 69, 0, 0.4);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #EF4444, #DC2626);
+  color: white;
+  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.3);
+}
+
+.btn-danger:hover {
+  background: linear-gradient(135deg, #DC2626, #B91C1C);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(239, 68, 68, 0.4);
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, #F59E0B, #D97706);
+  color: white;
+  box-shadow: 0 2px 4px rgba(245, 158, 11, 0.3);
+}
+
+.btn-warning:hover {
+  background: linear-gradient(135deg, #D97706, #B45309);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(245, 158, 11, 0.4);
+}
+
+.btn-info {
+  background: linear-gradient(135deg, #06B6D4, #0891B2);
+  color: white;
+  box-shadow: 0 2px 4px rgba(6, 182, 212, 0.3);
+}
+
+.btn-info:hover {
+  background: linear-gradient(135deg, #0891B2, #0E7490);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(6, 182, 212, 0.4);
+}
+
+.btn-light {
+  background: linear-gradient(135deg, #F8FAFC, #E2E8F0);
+  color: #374151;
+  border: 1px solid #D1D5DB;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-light:hover {
+  background: linear-gradient(135deg, #E2E8F0, #CBD5E1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-dark {
+  background: linear-gradient(135deg, #1F2937, #111827);
+  color: white;
+  box-shadow: 0 2px 4px rgba(31, 41, 55, 0.3);
+}
+
+.btn-dark:hover {
+  background: linear-gradient(135deg, #111827, #0F172A);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(31, 41, 55, 0.4);
+}
+
+/* Button Icon */
+.btn-icon {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+}
+
+.btn-text {
+  display: flex;
+  align-items: center;
+}
+
+/* Loading Spinner */
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .btn-large {
+    padding: 14px 20px;
+    font-size: 14px;
+    min-height: 44px;
+  }
+  
+  .btn-medium {
+    padding: 10px 16px;
+    font-size: 13px;
+    min-height: 36px;
+  }
+  
+  .btn-small {
+    padding: 6px 12px;
+    font-size: 11px;
+    min-height: 28px;
+  }
+}

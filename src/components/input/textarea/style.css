@@ -1,0 +1,43 @@
+/* TextArea Component Styles */
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 14px;
+}
+
+.textarea-input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #e9ecef;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  background: white;
+  resize: vertical;
+  font-family: inherit;
+  min-height: 80px;
+}
+
+.textarea-input:focus {
+  outline: none;
+  border-color: #FF4500;
+  box-shadow: 0 0 0 1px rgba(255, 69, 0, 0.2);
+}
+
+.textarea-input:disabled {
+  background: #f8f9fa;
+  color: #6c757d;
+  cursor: not-allowed;
+  resize: none;
+}
+
+.textarea-input::placeholder {
+  color: #6c757d;
+}

@@ -1,0 +1,218 @@
+/* Banner Page Styles */
+.banner-section {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.banner-header {
+  background: linear-gradient(135deg, #022340 0%, #0f3460 50%, #1e4a73 100%);
+  color: white;
+  padding: 30px;
+  border-radius: 15px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.banner-header h1 {
+  margin: 0 0 10px 0;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #FF4500 !important;
+}
+
+.banner-header p {
+  margin: 0;
+  font-size: 1rem;
+  opacity: 0.9;
+  color: #FFF !important;
+}
+
+.banner-form {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.banner-section-content {
+  margin-bottom: 30px;
+}
+
+.banner-section-header {
+  background: linear-gradient(135deg, #022340, #022340);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+}
+
+.banner-section-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.banner-section-icon {
+  width: 20px;
+  height: 20px;
+  color: white;
+}
+
+.banner-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.banner-form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.banner-form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.banner-form-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #e9ecef;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.banner-form-group input:focus {
+  outline: none;
+  border-color: #FF4500;
+  box-shadow: 0 0 0 1px rgba(255, 69, 0, 0.2);
+}
+
+.banner-form-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  padding-top: 20px;
+  border-top: 1px solid #e9ecef;
+}
+
+.banner-submit-btn {
+  padding: 15px 30px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #FF4500, #E03E00);
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.banner-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 69, 0, 0.4);
+}
+
+.banner-btn-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Preview Section */
+.banner-preview {
+  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+  border-radius: 15px;
+  padding: 30px;
+  margin-top: 30px;
+  border: 2px dashed #cbd5e1;
+}
+
+.banner-preview h4 {
+  margin: 0 0 20px 0;
+  color: #374151;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.banner-preview-content {
+  background: white;
+  border-radius: 12px;
+  padding: 40px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.banner-preview-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #022340;
+  margin: 0 0 15px 0;
+}
+
+.banner-preview-subtitle {
+  font-size: 1.2rem;
+  color: #64748b;
+  margin: 0 0 25px 0;
+}
+
+.banner-preview-button {
+  background: #FF4500;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.banner-preview-button:hover {
+  background: #E03E00;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .banner-section {
+    padding: 15px;
+  }
+
+  .banner-header {
+    padding: 20px;
+  }
+
+  .banner-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .banner-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .banner-form {
+    padding: 20px;
+  }
+
+  .banner-preview-title {
+    font-size: 2rem;
+  }
+
+  .banner-preview-subtitle {
+    font-size: 1rem;
+  }
+}

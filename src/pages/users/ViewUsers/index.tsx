@@ -11,6 +11,8 @@ import { EditAction, DeleteAction, DownloadAction } from '../../../components/ac
 import { TextInput, SingleSelectDropDown } from '../../../components/input';
 import { useConfirmation } from '../../../components/confirmation/useConfirmation';
 import EditUserModal from '../../../features/users/view-user/edit-user';
+import StatsCards from '../../../features/users/view-user/cards';
+import UserFilter from '../../../features/users/view-user/filter';
 import { notification } from '../../../utils';
 import PageHeader from '../../../components/page-header';
 import './style.css';
@@ -171,86 +173,23 @@ const ViewUsers: React.FC = () => {
       />
 
       {/* Stats Cards */}
-      <div className="stats-cards-grid">
-        <div className="stat-card">
-          <div className="stat-icon total">
-            <UsersIcon className="w-6 h-6" />
-          </div>
-          <div className="stat-content">
-            <div className="stat-number">{totalUsers}</div>
-            <div className="stat-label">Total Users</div>
-          </div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-icon active">
-            <UserCircleIcon className="w-6 h-6" />
-          </div>
-          <div className="stat-content">
-            <div className="stat-number">{activeUsers}</div>
-            <div className="stat-label">Active Users</div>
-          </div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-icon admin">
-            <ShieldCheckIcon className="w-6 h-6" />
-          </div>
-          <div className="stat-content">
-            <div className="stat-number">{adminUsers}</div>
-            <div className="stat-label">Admins</div>
-          </div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-icon teacher">
-            <UsersIcon className="w-6 h-6" />
-          </div>
-          <div className="stat-content">
-            <div className="stat-number">{teacherUsers}</div>
-            <div className="stat-label">Teachers</div>
-          </div>
-        </div>
-      </div>
+      <StatsCards
+        totalUsers={totalUsers}
+        activeUsers={activeUsers}
+        adminUsers={adminUsers}
+        teacherUsers={teacherUsers}
+      />
 
       {/* Filters */}
-      <div className="users-filters">
-        <div className="filter-header">
-          <FunnelIcon className="filter-icon" />
-          <h3 className="filter-title">Filters & Search</h3>
-        </div>
-        <div className="filter-content">
-          <div className="search-group">
-            <TextInput
-              label=""
-              name="search"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search users by name or email..."
-            />
-          </div>
-          <div className="filter-group">
-            <SingleSelectDropDown
-              label=""
-              name="roleFilter"
-              value={roleFilter}
-              onChange={(e) => setRoleFilter(e.target.value)}
-              options={roles.map(role => ({ value: role, label: role }))}
-              placeholder="All Roles"
-            />
-          </div>
-          <div className="filter-group">
-            <SingleSelectDropDown
-              label=""
-              name="statusFilter"
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
-              options={[
-                { value: 'Active', label: 'Active' },
-                { value: 'Inactive', label: 'Inactive' }
-              ]}
-              placeholder="All Status"
-            />
-          </div>
-        </div>
-      </div>
+      <UserFilter
+        searchTerm={searchTerm}
+        roleFilter={roleFilter}
+        statusFilter={statusFilter}
+        roles={roles}
+        onSearchChange={setSearchTerm}
+        onRoleChange={setRoleFilter}
+        onStatusChange={setStatusFilter}
+      />
 
       {/* Users Table */}
       <div className="users-table-container">

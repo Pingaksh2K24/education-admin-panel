@@ -1,0 +1,196 @@
+/* Users Filter Styles */
+.users-filters {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border: 2px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.users-filters::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4, #10b981);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.users-filters:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 12px 35px rgba(59, 130, 246, 0.15);
+  transform: translateY(-2px);
+}
+
+.users-filters:hover::before {
+  opacity: 1;
+}
+
+.filter-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 3px solid #e2e8f0;
+  position: relative;
+}
+
+.filter-header::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  border-radius: 2px;
+}
+
+.filter-icon {
+  width: 32px;
+  height: 32px;
+  color: #3b82f6;
+  background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+  padding: 8px;
+  border-radius: 12px;
+  border: 2px solid #93c5fd;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+  transition: all 0.3s ease;
+}
+
+.users-filters:hover .filter-icon {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
+}
+
+.filter-title {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #1e293b;
+  background: linear-gradient(135deg, #1e293b, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.filter-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+.search-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-group label,
+.filter-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.5px;
+}
+
+/* Enhanced Input Styling */
+.users-filters input,
+.users-filters select {
+  width: 100%;
+  height: 48px;
+  transition: all 0.3s ease;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 0 16px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  background: linear-gradient(135deg, #ffffff, #f8fafc);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  outline: none;
+}
+
+.users-filters input:focus,
+.users-filters select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1), 0 4px 12px rgba(59, 130, 246, 0.15);
+  transform: translateY(-1px);
+}
+
+.users-filters input::placeholder {
+  color: #9ca3af;
+  font-weight: 400;
+}
+
+.users-filters select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23666" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px;
+  padding-right: 40px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .filter-content {
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .users-filters {
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 16px;
+  }
+  
+  .filter-content {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .filter-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+  }
+  
+  .filter-title {
+    font-size: 1.2rem;
+  }
+  
+  .filter-icon {
+    width: 24px;
+    height: 24px;
+    padding: 6px;
+  }
+  
+  .users-filters input,
+  .users-filters select {
+    height: 44px;
+    padding: 0 12px;
+    font-size: 0.9rem;
+  }
+  
+  .users-filters select {
+    padding-right: 36px;
+  }
+}

@@ -5,6 +5,7 @@ import {
   UserIcon,
   LockClosedIcon
 } from '@heroicons/react/24/outline';
+import { notification } from '../../utils';
 import './style.css';
 
 interface LoginProps {
@@ -19,21 +20,44 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Check credentials
-    if (formData.email === 'admin@gmail.com' && formData.password === 'Admin@123') {
-      setTimeout(() => {
-        setIsLoading(false);
-        onLogin();
-      }, 2000);
-    } else {
-      setTimeout(() => {
-        setIsLoading(false);
-        alert('Invalid credentials! Please use admin@gmail.com and Admin@123');
-      }, 2000);
+    try {
+      const response = await fetch('http://localhost:3000/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password
+        })
+      });
+      
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Login successful:', result);
+        
+        // Store token if provided
+        if (result.token) {
+          localStorage.setItem('authToken', result.token);
+        }
+        
+        notification.success('User login successfully!');
+        setTimeout(() => {
+          onLogin();
+        }, 1000);
+      } else {
+        const error = await response.json();
+        notification.error('Login failed: ' + (error.message || 'Invalid credentials'));
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      notification.error('Network error. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
 

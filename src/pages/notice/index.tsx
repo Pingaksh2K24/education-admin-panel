@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { SpeakerWaveIcon, FireIcon, CheckCircleIcon, CalendarDaysIcon, MagnifyingGlassIcon, PencilIcon, TrashIcon, PlusIcon, EyeIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
+import PageHeader from '../../components/page-header';
 import './style.css';
 
 const Notice: React.FC = () => {
@@ -70,7 +71,7 @@ const Notice: React.FC = () => {
 
   const filteredNotices = notices.filter(notice => {
     const matchesSearch = notice.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         notice.content.toLowerCase().includes(searchTerm.toLowerCase());
+      notice.content.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = filterCategory === 'All' || notice.category === filterCategory;
     const matchesPriority = filterPriority === 'All' || notice.priority === filterPriority;
     return matchesSearch && matchesCategory && matchesPriority;
@@ -255,10 +256,10 @@ const Notice: React.FC = () => {
 
   return (
     <div className="notice-page">
-      <div className="page-header">
-        <h1><SpeakerWaveIcon className="header-icon" /> Notice Management</h1>
-        <p>Manage and publish notices for students, faculty, and staff</p>
-      </div>
+      <PageHeader
+        title="Notice Management"
+        subtitle="Manage and publish notices for students, faculty, and staff"
+      />
 
       <div className="tab-navigation">
         <button

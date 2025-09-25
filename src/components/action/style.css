@@ -30,8 +30,8 @@
 }
 
 .action-btn-small svg {
-  width: 16px;
-  height: 16px;
+  width: 16px !important;
+  height: 16px !important;
 }
 
 .action-btn-medium {
@@ -41,8 +41,8 @@
 }
 
 .action-btn-medium svg {
-  width: 20px;
-  height: 20px;
+  width: 20px !important;
+  height: 20px !important;
 }
 
 .action-btn-large {
@@ -52,8 +52,8 @@
 }
 
 .action-btn-large svg {
-  width: 24px;
-  height: 24px;
+  width: 24px !important;
+  height: 24px !important;
 }
 
 /* Action Button Variants */
@@ -162,10 +162,19 @@
 .action-btn svg {
   stroke-width: 2;
   transition: all 0.2s ease;
+  display: block !important;
+  flex-shrink: 0;
 }
 
 .action-btn:hover svg {
   transform: scale(1.1);
+}
+
+/* Force icon visibility */
+.action-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 /* Responsive Design */

@@ -7,7 +7,7 @@ import AddFaculty from '../pages/faculty/AddFacultty';
 import ViewEvent from '../pages/events/ViewEvent';
 import ViewEvents from '../pages/events/ViewEvents';
 import ViewUsers from '../pages/users/ViewUsers';
-import AddUsers from '../pages/users/AddUsers';
+import AddUsers from '../pages/users/add';
 import ViewCourse from '../pages/courses/ViewCourse/index';
 import AddCourse from '../pages/courses/AddCourse';
 import Settings from '../pages/settings';

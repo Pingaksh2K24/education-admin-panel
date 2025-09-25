@@ -7,7 +7,7 @@
 
 /* Users Header */
 .users-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #022340 0%, #022340  100%);
   padding: 2rem;
   margin-bottom: 2rem;
   color: white;
@@ -287,7 +287,7 @@
 }
 
 .users-table th {
-  background: #1e293b;
+  background: #022340;
   color: white;
   padding: 12px 8px;
   text-align: left;

@@ -4,9 +4,17 @@ import './style.css';
 
 interface HeaderProps {
   sidebarCollapsed?: boolean;
+  title?: string;
+  subtitle?: string;
+  icon?: React.ReactNode;
 }
 
-const Header: React.FC<HeaderProps> = ({ sidebarCollapsed = false }) => {
+const Header: React.FC<HeaderProps> = ({ 
+  sidebarCollapsed = false, 
+  title = 'Welcome Admin',
+  subtitle,
+  icon 
+}) => {
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
 
@@ -19,8 +27,12 @@ const Header: React.FC<HeaderProps> = ({ sidebarCollapsed = false }) => {
   return (
     <header className={`header ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
       <div className="header-left">
-        <div className="search-container">
-          Welcome Admin
+        <div className="page-header-content">
+          {icon && <div className="page-header-icon">{icon}</div>}
+          <div className="page-header-text">
+            <h1 className="page-header-title">{title}</h1>
+            {subtitle && <p className="page-header-subtitle">{subtitle}</p>}
+          </div>
         </div>
       </div>
 

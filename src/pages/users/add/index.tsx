@@ -12,12 +12,17 @@ import {
 } from '@heroicons/react/24/outline';
 import { SubmitButton, CancelButton } from '../../../components/buttons/page';
 import { TextInput, SingleSelectDropDown } from '../../../components/input';
+import { notification } from '../../../utils';
 import './style.css';
 
 interface UserForm {
   name: string;
   email: string;
   phone: string;
+  alternatePhone: string;
+  dob: string;
+  gender: string;
+  address: string;
   role: string;
   department: string;
   password: string;
@@ -26,11 +31,27 @@ interface UserForm {
   image: File | null;
 }
 
+interface DropdownOption {
+  id: number;
+  name: string;
+  is_active: boolean;
+}
+
+interface DropdownData {
+  roles: DropdownOption[];
+  departments: DropdownOption[];
+  status: DropdownOption[];
+}
+
 const AddUsers: React.FC = () => {
   const [formData, setFormData] = useState<UserForm>({
     name: '',
     email: '',
     phone: '',
+    alternatePhone: '',
+    dob: '',
+    gender: '',
+    address: '',
     role: '',
     department: '',
     password: '',
@@ -42,6 +63,33 @@ const AddUsers: React.FC = () => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Partial<UserForm>>({});
+  const [dropdownData, setDropdownData] = useState<DropdownData>({
+    roles: [],
+    departments: [],
+    status: []
+  });
+
+  const fetchDropdownData = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/api/auth/getAllDropdowns');
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Full API Response:', result);
+        console.log('Data to set:', result.data || result);
+        setDropdownData(result.data || result);
+      }
+    } catch (error) {
+      console.error('Failed to fetch dropdown data:', error);
+    }
+  };
+
+  React.useEffect(() => {
+    console.log('Current dropdown data:', dropdownData);
+  }, [dropdownData]);
+
+  React.useEffect(() => {
+    fetchDropdownData();
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -86,6 +134,15 @@ const AddUsers: React.FC = () => {
     const newErrors: Partial<UserForm> = {};
     
     if (!formData.name.trim()) newErrors.name = 'Name is required';
+    console.log('Form data being sent:', {
+      full_name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      role: formData.role,
+      department: formData.department,
+      password: formData.password,
+      status: formData.status
+    });
     if (!formData.email.trim()) newErrors.email = 'Email is required';
     if (!formData.phone.trim()) newErrors.phone = 'Phone is required';
     if (!formData.role) newErrors.role = 'Role is required';
@@ -112,12 +169,16 @@ const AddUsers: React.FC = () => {
         },
         body: JSON.stringify({
           full_name: formData.name,
+          dob: formData.dob,
+          gender_id: parseInt(formData.gender),
+          address: formData.address,
           email: formData.email,
           phone: formData.phone,
-          role: formData.role,
-          department: formData.department,
-          password: formData.password,
-          status: formData.status
+          alternate_phone: formData.alternatePhone,
+          role_id: parseInt(formData.role),
+          department_id: parseInt(formData.department),
+          status_id: parseInt(formData.status),
+          password: formData.password
         })
       });
       
@@ -125,15 +186,15 @@ const AddUsers: React.FC = () => {
         const result = await response.json();
         console.log('User created successfully:', result);
         handleReset();
-        alert('User added successfully!');
+        notification.success('User added successfully!');
       } else {
         const error = await response.json();
         console.error('Registration failed:', error);
-        alert('Failed to add user: ' + (error.message || 'Unknown error'));
+        notification.error('Failed to add user: ' + (error.message || 'Unknown error'));
       }
     } catch (error) {
       console.error('Network error:', error);
-      alert('Network error. Please try again.');
+      notification.error('Network error. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -144,6 +205,10 @@ const AddUsers: React.FC = () => {
       name: '',
       email: '',
       phone: '',
+      alternatePhone: '',
+      dob: '',
+      gender: '',
+      address: '',
       role: '',
       department: '',
       password: '',
@@ -209,6 +274,48 @@ const AddUsers: React.FC = () => {
                 />
                 {errors.phone && <span className="error-message">{errors.phone}</span>}
               </div>
+              <div className="form-group">
+                <TextInput
+                  label="Alternate Phone Number"
+                  name="alternatePhone"
+                  type="tel"
+                  value={formData.alternatePhone}
+                  onChange={handleInputChange}
+                  placeholder="Enter alternate phone number"
+                />
+              </div>
+              <div className="form-group">
+                <TextInput
+                  label="Date of Birth"
+                  name="dob"
+                  type="date"
+                  value={formData.dob}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="form-group">
+                <SingleSelectDropDown
+                  label="Gender"
+                  name="gender"
+                  value={formData.gender}
+                  onChange={handleInputChange}
+                  options={[
+                    { value: '1', label: 'Male' },
+                    { value: '2', label: 'Female' },
+                    { value: '3', label: 'Other' }
+                  ]}
+                  placeholder="Select Gender"
+                />
+              </div>
+              <div className="form-group">
+                <TextInput
+                  label="Address"
+                  name="address"
+                  value={formData.address}
+                  onChange={handleInputChange}
+                  placeholder="Enter address"
+                />
+              </div>
             </div>
           </div>
 
@@ -225,12 +332,13 @@ const AddUsers: React.FC = () => {
                   name="role"
                   value={formData.role}
                   onChange={handleInputChange}
-                  options={[
-                    { value: 'Admin', label: 'Admin' },
-                    { value: 'Teacher', label: 'Teacher' },
-                    { value: 'Student', label: 'Student' },
-                    { value: 'Staff', label: 'Staff' }
-                  ]}
+                  options={(() => {
+                    const options = dropdownData?.roles
+                      ?.filter(role => role.is_active)
+                      ?.map(role => ({ value: role.id.toString(), label: role.name })) || [];
+                    console.log('Role options:', options);
+                    return options;
+                  })()}
                   placeholder="Select Role"
                   required
                 />
@@ -242,16 +350,13 @@ const AddUsers: React.FC = () => {
                   name="department"
                   value={formData.department}
                   onChange={handleInputChange}
-                  options={[
-                    { value: 'Administration', label: 'Administration' },
-                    { value: 'Computer Science', label: 'Computer Science' },
-                    { value: 'Mathematics', label: 'Mathematics' },
-                    { value: 'Physics', label: 'Physics' },
-                    { value: 'Chemistry', label: 'Chemistry' },
-                    { value: 'Engineering', label: 'Engineering' },
-                    { value: 'Library', label: 'Library' },
-                    { value: 'Finance', label: 'Finance' }
-                  ]}
+                  options={(() => {
+                    const options = dropdownData?.departments
+                      ?.filter(dept => dept.is_active)
+                      ?.map(dept => ({ value: dept.id.toString(), label: dept.name })) || [];
+                    console.log('Department options:', options);
+                    return options;
+                  })()}
                   placeholder="Select Department"
                 />
               </div>
@@ -261,10 +366,13 @@ const AddUsers: React.FC = () => {
                   name="status"
                   value={formData.status}
                   onChange={handleInputChange}
-                  options={[
-                    { value: 'Active', label: 'Active' },
-                    { value: 'Inactive', label: 'Inactive' }
-                  ]}
+                  options={(() => {
+                    const options = dropdownData?.status
+                      ?.filter(status => status.is_active)
+                      ?.map(status => ({ value: status.id.toString(), label: status.name })) || [];
+                    console.log('Status options:', options);
+                    return options;
+                  })()}
                 />
               </div>
             </div>

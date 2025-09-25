@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import {
   UsersIcon,
-  MagnifyingGlassIcon,
   FunnelIcon,
   UserCircleIcon,
   EnvelopeIcon,
   PhoneIcon,
-  CalendarIcon,
   ShieldCheckIcon
 } from '@heroicons/react/24/outline';
-import { ViewAction, EditAction, DeleteAction } from '../../../components/action/page';
+import { EditAction, DeleteAction, DownloadAction } from '../../../components/action/page';
 import { TextInput, SingleSelectDropDown } from '../../../components/input';
+import { useConfirmation } from '../../../components/confirmation/useConfirmation';
+import EditUserModal from '../../../features/users/view-user/edit-user';
+import { notification } from '../../../utils';
+import PageHeader from '../../../components/page-header';
 import './style.css';
 
 interface User {
@@ -25,6 +27,18 @@ interface User {
   department?: string;
 }
 
+interface DropdownOption {
+  id: number;
+  name: string;
+  is_active: boolean;
+}
+
+interface DropdownData {
+  roles: DropdownOption[];
+  departments: DropdownOption[];
+  status: DropdownOption[];
+}
+
 const ViewUsers: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [roleFilter, setRoleFilter] = useState('');
@@ -32,6 +46,15 @@ const ViewUsers: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+
+  const { showConfirmation, ConfirmationComponent } = useConfirmation();
+  const [dropdownData, setDropdownData] = useState<DropdownData>({
+    roles: [],
+    departments: [],
+    status: []
+  });
 
   useEffect(() => {
     fetchUsers();
@@ -46,20 +69,22 @@ const ViewUsers: React.FC = () => {
       }
       const data = await response.json();
       console.log('API Response:', data); // Debug log
-      
-      // Map API response to User interface
-      const mappedUsers = Array.isArray(data) ? data.map((user: any, index: number) => ({
-        id: user.id || index + 1,
-        name: user.full_name || user.full_name || 'Unknown',
-        email: user.email || '',
-        phone: user.phone || user.mobile || '',
-        role: user.role || 'Student',
-        status: user.status || 'Active',
-        joinDate: user.joinDate || user.createdAt || new Date().toISOString().split('T')[0],
-        avatar: user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || 'User')}&background=FF4500&color=fff`,
-        department: user.department || ''
-      })) : [];
-      
+
+      // Map API response to User interface and filter out soft deleted users
+      const mappedUsers = Array.isArray(data) ? data
+        .filter((user: any) => !user.is_deleted && user.is_deleted !== true && user.deleted_at === null)
+        .map((user: any, index: number) => ({
+          id: user.id || index + 1,
+          name: user.full_name || user.full_name || 'Unknown',
+          email: user.email || '',
+          phone: user.phone || user.mobile || '',
+          role: user.role || 'Student',
+          status: user.status || 'Active',
+          joinDate: user.joinDate || user.createdAt || new Date().toISOString().split('T')[0],
+          avatar: user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || 'User')}&background=FF4500&color=fff`,
+          department: user.department || ''
+        })) : [];
+
       setUsers(mappedUsers);
     } catch (err) {
       setError('Failed to load users');
@@ -83,18 +108,67 @@ const ViewUsers: React.FC = () => {
   const adminUsers = users.filter(u => u.role === 'Admin').length;
   const teacherUsers = users.filter(u => u.role === 'Teacher').length;
 
+  const fetchDropdownData = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/api/auth/getAllDropdowns');
+      if (response.ok) {
+        const result = await response.json();
+        setDropdownData(result.data || result);
+      }
+    } catch (error) {
+      console.error('Failed to fetch dropdown data:', error);
+    }
+  };
+
+  const handleEditUser = (user: User) => {
+    setSelectedUser(user);
+    fetchDropdownData();
+    setIsEditModalOpen(true);
+  };
+
+  const handleDeleteUser = async (userId: number, userName: string) => {
+    const confirmed = await showConfirmation({
+      title: 'Delete User',
+      message: `Are you sure you want to delete ${userName}? This action cannot be undone.`,
+      type: 'delete',
+      confirmText: 'Delete',
+      cancelText: 'Cancel'
+    });
+
+    if (confirmed) {
+      try {
+        const response = await fetch(`http://localhost:3000/api/auth/users/${userId}`, {
+          method: 'DELETE'
+        });
+
+        if (response.ok) {
+          notification.success(`${userName} deleted successfully!`);
+          // Remove user from local state
+          setUsers(users.filter(user => user.id !== userId));
+        } else {
+          const error = await response.json();
+          notification.error('Failed to delete user: ' + (error.message || 'Unknown error'));
+        }
+      } catch (error) {
+        console.error('Delete error:', error);
+        notification.error('Network error. Please try again.');
+      }
+    }
+  };
+
+  const handleCloseEditModal = () => {
+    setIsEditModalOpen(false);
+    setSelectedUser(null);
+  };
+
   return (
     <div className="view-users-container">
       {/* Header */}
-      <div className="users-header">
-        <div className="header-content">
-          <h1 className="page-title">
-            <UsersIcon className="title-icon" />
-            User Management
-          </h1>
-          <p className="page-subtitle">Manage all system users and their permissions</p>
-        </div>
-      </div>
+      <PageHeader
+        title="User Management"
+        subtitle="Manage all system users and their permissions"
+        icon={<UsersIcon />}
+      />
 
       {/* Stats Cards */}
       <div className="stats-cards-grid">
@@ -186,12 +260,7 @@ const ViewUsers: React.FC = () => {
             <p className="table-subtitle">Manage system users and their access permissions</p>
           </div>
           <div className="table-actions">
-            <button className="export-btn">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-              Export
-            </button>
+            <DownloadAction size="medium" tooltip="Export Users" />
           </div>
         </div>
 
@@ -216,7 +285,6 @@ const ViewUsers: React.FC = () => {
                     </div>
                     <div className="user-details">
                       <div className="user-name">{user.name}</div>
-                      <div className="user-email">{user.email}</div>
                     </div>
                   </div>
                 </td>
@@ -245,9 +313,8 @@ const ViewUsers: React.FC = () => {
                 </td>
                 <td>
                   <div className="action-buttons">
-                    <ViewAction onClick={() => console.log('View user:', user.id)} size="small" />
-                    <EditAction onClick={() => console.log('Edit user:', user.id)} size="small" />
-                    <DeleteAction onClick={() => console.log('Delete user:', user.id)} size="small" />
+                    <EditAction onClick={() => handleEditUser(user)} size="small" />
+                    <DeleteAction onClick={() => handleDeleteUser(user.id, user.name)} size="small" />
                   </div>
                 </td>
               </tr>
@@ -280,6 +347,16 @@ const ViewUsers: React.FC = () => {
           </div>
         )}
       </div>
+
+      {/* Edit User Modal */}
+      <EditUserModal
+        isOpen={isEditModalOpen}
+        onClose={handleCloseEditModal}
+        user={selectedUser}
+        dropdownData={dropdownData}
+      />
+
+      <ConfirmationComponent />
     </div>
   );
 };

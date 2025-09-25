@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
+import { ToastContainer } from 'react-toastify';
 import Layout from './components/Layout';
 import Login from './pages/login';
+import { toastConfig } from './utils/notification/config';
+import 'react-toastify/dist/ReactToastify.css';
+import './utils/notification/styles.css';
 import './App.css';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  if (!isAuthenticated) {
-    return <Login onLogin={() => setIsAuthenticated(true)} />;
-  }
-
   return (
     <div className="App">
-      <Layout />
+      {!isAuthenticated ? (
+        <Login onLogin={() => setIsAuthenticated(true)} />
+      ) : (
+        <Layout />
+      )}
+      <ToastContainer {...toastConfig} />
     </div>
   );
 }

@@ -76,10 +76,10 @@ const ViewUsers: React.FC = () => {
         .map((user: any, index: number) => ({
           id: user.id || index + 1,
           name: user.full_name || user.full_name || 'Unknown',
-          email: user.email || '',
-          phone: user.phone || user.mobile || '',
-          role: user.role || 'Student',
-          status: user.status || 'Active',
+          email: user.email || '-',
+          phone: user.phone || user.mobile || '-',
+          role: user.role_name || '-',
+          status: user.status_name || '-',
           joinDate: user.joinDate || user.createdAt || new Date().toISOString().split('T')[0],
           avatar: user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || 'User')}&background=FF4500&color=fff`,
           department: user.department_name || ''

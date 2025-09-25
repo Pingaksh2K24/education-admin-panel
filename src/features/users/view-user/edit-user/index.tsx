@@ -249,33 +249,7 @@ const EditUserModal: React.FC<EditUserModalProps> = ({
                   placeholder="Select Status"
                 />
               </div>
-            </div>
-            
-            {/* Security */}
-            <div className="form-section">
-              <h4 className="section-title">
-                <KeyIcon className="section-icon" />
-                Security
-              </h4>
-              <div className="form-grid">
-                <TextInput
-                  label="New Password"
-                  name="password"
-                  type="password"
-                  value={editFormData.password}
-                  onChange={handleEditInputChange}
-                  placeholder="Enter new password (leave blank to keep current)"
-                />
-                <TextInput
-                  label="Confirm New Password"
-                  name="confirmPassword"
-                  type="password"
-                  value={editFormData.confirmPassword}
-                  onChange={handleEditInputChange}
-                  placeholder="Confirm new password"
-                />
-              </div>
-            </div>
+            </div>  
             
             {/* Profile Photo */}
             <div className="form-section">

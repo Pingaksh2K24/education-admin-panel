@@ -53,11 +53,11 @@ const ActionButton: React.FC<ActionButtonProps & { icon: React.ReactNode; classN
 
 // Action Button Components
 export const EditAction: React.FC<ActionButtonProps> = (props) => (
-  <ActionButton icon={<PencilIcon />} variant="info" tooltip="Edit" {...props} />
+  <ActionButton icon={<PencilIcon />} variant="primary" tooltip="Edit" {...props} />
 );
 
 export const DeleteAction: React.FC<ActionButtonProps> = (props) => (
-  <ActionButton icon={<TrashIcon />} variant="danger" tooltip="Delete" {...props} />
+  <ActionButton icon={<TrashIcon />} variant="warning" tooltip="Delete" {...props} />
 );
 
 export const ViewAction: React.FC<ActionButtonProps> = (props) => (

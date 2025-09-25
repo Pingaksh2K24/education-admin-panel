@@ -121,4 +121,7 @@ export const RejectButton: React.FC<Omit<ButtonProps, 'variant'>> = (props) => (
   <Button variant="danger" {...props}>Reject</Button>
 );
 
+export const ExportPDF: React.FC<Omit<ButtonProps, 'variant'>> = (props) => (
+  <Button variant="success" {...props}>Export</Button>
+);
 export default Button;

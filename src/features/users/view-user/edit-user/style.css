@@ -5,25 +5,13 @@
 }
 
 .edit-user-form .form-sections {
-  max-height: 70vh;
-  overflow-y: auto;
+  max-height: none;
+  overflow-y: visible;
   margin-bottom: 2rem;
   padding: 1rem;
 }
 
-.edit-user-form .form-sections::-webkit-scrollbar {
-  width: 8px;
-}
 
-.edit-user-form .form-sections::-webkit-scrollbar-track {
-  background: #f1f5f9;
-  border-radius: 4px;
-}
-
-.edit-user-form .form-sections::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-  border-radius: 4px;
-}
 
 .edit-user-form .form-section {
   background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);

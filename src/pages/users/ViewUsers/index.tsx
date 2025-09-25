@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import {
   UsersIcon,
-  FunnelIcon,
   UserCircleIcon,
   EnvelopeIcon,
   PhoneIcon,
   ShieldCheckIcon
 } from '@heroicons/react/24/outline';
-import { EditAction, DeleteAction, DownloadAction } from '../../../components/action/page';
-import { TextInput, SingleSelectDropDown } from '../../../components/input';
+import { EditAction, DeleteAction } from '../../../components/action/page';
+import { ExportPDF } from '../../../components/buttons/page';
 import { useConfirmation } from '../../../components/confirmation/useConfirmation';
 import EditUserModal from '../../../features/users/view-user/edit-user';
 import StatsCards from '../../../features/users/view-user/cards';
@@ -74,7 +73,6 @@ const ViewUsers: React.FC = () => {
 
       // Map API response to User interface and filter out soft deleted users
       const mappedUsers = Array.isArray(data) ? data
-        .filter((user: any) => !user.is_deleted && user.is_deleted !== true && user.deleted_at === null)
         .map((user: any, index: number) => ({
           id: user.id || index + 1,
           name: user.full_name || user.full_name || 'Unknown',
@@ -84,9 +82,9 @@ const ViewUsers: React.FC = () => {
           status: user.status || 'Active',
           joinDate: user.joinDate || user.createdAt || new Date().toISOString().split('T')[0],
           avatar: user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || 'User')}&background=FF4500&color=fff`,
-          department: user.department || ''
+          department: user.department_name || ''
         })) : [];
-
+      console.log("Mapped Users:", mappedUsers); // Debug log
       setUsers(mappedUsers);
     } catch (err) {
       setError('Failed to load users');
@@ -199,7 +197,7 @@ const ViewUsers: React.FC = () => {
             <p className="table-subtitle">Manage system users and their access permissions</p>
           </div>
           <div className="table-actions">
-            <DownloadAction size="medium" tooltip="Export Users" />
+            <ExportPDF size="medium">Export</ExportPDF>
           </div>
         </div>
 
@@ -210,6 +208,7 @@ const ViewUsers: React.FC = () => {
               <th>Role</th>
               <th>Department</th>
               <th>Contact</th>
+              <th>Status</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -249,6 +248,11 @@ const ViewUsers: React.FC = () => {
                       <span>{user.phone}</span>
                     </div>
                   </div>
+                </td>
+                <td>
+                  <span className="user-status">
+                    {user.status}
+                  </span>
                 </td>
                 <td>
                   <div className="action-buttons">

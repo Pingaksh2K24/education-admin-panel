@@ -21,6 +21,16 @@
   position: relative;
 }
 
+/* Hide scrollbar but keep functionality */
+.modal-content::-webkit-scrollbar {
+  display: none;
+}
+
+.modal-content {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 .modal-small {
   width: 100%;
   max-width: 400px;
@@ -47,8 +57,8 @@
 .modal-title {
   margin: 0;
   font-size: 1.25rem;
-  font-weight: 600;
-  color: #1f2937;
+  font-weight: 800;
+  color: #ff4500;
 }
 
 .modal-close-btn {

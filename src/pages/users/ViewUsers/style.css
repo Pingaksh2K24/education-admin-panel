@@ -354,7 +354,7 @@
   padding: 12px 8px;
   text-align: left;
   font-weight: 600;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   text-transform: capitalize;
   letter-spacing: 0.3px;
   white-space: nowrap;
@@ -539,16 +539,10 @@
 }
 
 /* Status Badge - Fixed */
-.status-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  white-space: nowrap;
+.user-status {
+color: #ef4444;
+font-weight: 600;
+display: inline-flex;
 }
 
 .status-badge.active {
